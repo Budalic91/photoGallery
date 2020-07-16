@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+          {{pageTitle}}
+        </div>
+        <div class="card-body">
+            <form [formGroup]="loginForm">
+                <mat-form-field class="form-field">
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="userName" placeholder="Please enter the username" />
+                    <mat-error *ngIf="loginForm.get('userName').valid">
+                        Please enter a username
+                    </mat-error>
+                </mat-form-field>
+                <br />
+                <mat-form-field class="form-field">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="Ex. pat@example.com" />
+                    <mat-error *ngIf="loginForm.get('email').valid">
+                        Please enter a valid email
+                    </mat-error>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button mat-raised-button color="warn" class="form-field" 
+                [disabled]="!loginForm.valid" (click)="login()">Login</button>
+        </div>
+    </div>
+</div>

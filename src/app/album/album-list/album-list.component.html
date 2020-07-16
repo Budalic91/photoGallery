@@ -1,0 +1,23 @@
+<div id="wrapper">
+    <div class="title-section">
+        <h1 style="float:left;">Photo Albums</h1>
+        <mat-button-toggle-group [(ngModel)]="isRowsCheckedAlbum" (ngModelChange)="toggleButtonChanged()" name="fontStyle" aria-label="Font Style" class="toogle-buttons">
+            <mat-button-toggle [value]="false">
+                <mat-icon>view_module</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle [value]="true">
+                <mat-icon>list</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <br/>
+    <div>
+        <cdk-virtual-scroll-viewport itemSize="50" minBufferPx="100" maxBufferPx="500" class="clearfix">
+            <figure *cdkVirtualFor="let album of albumLists" class="image" 
+                [ngClass]="{'rows': isRowsCheckedAlbum == true}">
+                <img class="rows-img" src="https://picsum.photos/200/160/?image={{ album.id }}" />
+                <figcaption (click)="openAlbum(album.id)" class="rows-figcaption">{{album?.title != null ? album?.title.charAt(0).toUpperCase() + album?.title.slice(1) : ""}}</figcaption>
+            </figure>
+        </cdk-virtual-scroll-viewport>
+    </div>
+</div>

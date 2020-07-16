@@ -1,0 +1,26 @@
+cdk-virtual-scroll-viewport {
+    height: 550px;
+    margin: 20px auto;
+    width: 1120px;
+  
+    /* scrollbar-color: #ff4081 #f5f5f5;
+    scrollbar-width: thin; */
+} 
+
+.image {
+    display: inline-block;
+    margin: 10px;
+    width: 30%;
+    height: 100%;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 560px) {
+    .image {
+        width: 100%!important;
+    }
+}
+
+.rows {
+    width: 100%!important;
+}

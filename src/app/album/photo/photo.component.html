@@ -1,0 +1,36 @@
+<div id="wrapper2">
+    <button class="back-button" (click)="backToAlbums()" mat-stroked-button>Back</button>
+    <div class="title-section">
+        <h1 style="float:left;">Photos of family</h1>
+        <mat-button-toggle-group [(ngModel)]="isRowsChecked" (ngModelChange)="toggleButtonChanged()" name="fontStyle" aria-label="Font Style" class="toogle-buttons">
+            <mat-button-toggle [value]="false">
+                <mat-icon>view_module</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle [value]="true">
+                <mat-icon>list</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <div>
+        <mat-form-field class="example-full-width">
+            <span matPrefix><mat-icon>search</mat-icon>&nbsp;</span>
+            <input type="text" matInput [(ngModel)]="searchTerm" placeholder="Search">
+        </mat-form-field>
+    </div>
+    <div>
+        <cdk-virtual-scroll-viewport itemSize="50" minBufferPx="540px" maxBufferPx="540px" class="clearfix">
+            <figure *cdkVirtualFor="let photo of albumPhotos | photoFilter:searchTerm | keyvalue" class="image" 
+                [ngClass]="{'rows': isRowsChecked == true }">
+                <img style="cursor: pointer;" (click)="openImage(photo.value, albumPhotos.length)" class="rows-img" [src]="photo.value.url" />
+                    <figcaption class="rows-figcaption" style="cursor: default;">
+                        <div [ngClass]="{'div-flex': isRowsChecked == false, 'div-rows': isRowsChecked == true}">
+                            <div class="text-div" [ngClass]="{'div-rows': isRowsChecked == true}">
+                                {{photo.value?.title != null ? photo.value?.title.charAt(0).toUpperCase() + photo.value?.title.slice(1) : ""}}
+                            </div>
+                            <mat-icon (click)="removePhoto(photo.key);" class="remove-icon">delete</mat-icon>
+                        </div>
+                    </figcaption>
+            </figure>
+        </cdk-virtual-scroll-viewport>
+    </div>
+</div>

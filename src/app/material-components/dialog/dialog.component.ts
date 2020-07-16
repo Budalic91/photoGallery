@@ -7,6 +7,7 @@ export interface DialogData {
     albumId: any;
     photo: object;
     totalPhoto: any;
+    firstElement: any;
 }
 
 @Component({
@@ -18,6 +19,8 @@ export class DialogComponent implements OnInit {
     id;
     albumId;
     total;
+    firstElement;
+    lastId;
 
     constructor(public dialogRef: MatDialogRef<DialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -28,16 +31,18 @@ export class DialogComponent implements OnInit {
         this.imageUrl = this.data.photo['url'];
         this.id = this.data.photo['id'];
         this.albumId = this.data.photo['albumId'];
-        this.total = this.data.totalPhoto;
+        this.total = this.data.totalPhoto - 1;
+        this.firstElement = this.data.firstElement;
+        this.lastId = this.firstElement + this.total;
     }
 
     loadPhoto(value)
     {
         if (value == 'plus')
         {
-            if (this.id == this.total)
+            if (this.id == this.lastId)
             {
-                this.id = 1;
+                this.id = this.firstElement;
             }
             else 
             {
@@ -46,9 +51,9 @@ export class DialogComponent implements OnInit {
         }
         else
         {
-            if (this.id == 1)
+            if (this.id == this.firstElement)
             {
-                this.id = this.total;
+                this.id = this.lastId;
             }
             else 
             {

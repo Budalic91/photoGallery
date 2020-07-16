@@ -58,8 +58,8 @@ export class AlbumComponent implements OnInit {
         let dataObj = {
             albumId: obj.albumId,
             photo: obj,
-            totalPhoto: totalPhotos
-        
+            totalPhoto: totalPhotos,
+            firstElement: this.albumPhotos[0]['id']
         }
 
         const dialogRef = this.dialog.open(DialogComponent, {

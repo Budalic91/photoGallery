@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .container {
     padding: 10% 40%;
 }
@@ -18,4 +20,8 @@
     .container {
         padding: 10% 10%;
     }
+}
+
+.mat-warn {
+    background-color: $primaryColor!important;
 }

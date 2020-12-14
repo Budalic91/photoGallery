@@ -11,9 +11,9 @@
         </mat-button-toggle-group>
     </div>
     <br/>
-    <div>
+    <div *ngIf="albumLists$ | async as albumLists">
         <cdk-virtual-scroll-viewport itemSize="50" minBufferPx="100" maxBufferPx="500" class="clearfix">
-            <figure *cdkVirtualFor="let album of albumLists" class="image" 
+            <figure *cdkVirtualFor="let album of albumLists" class="image"
                 [ngClass]="{'rows': isRowsCheckedAlbum == true}">
                 <img class="rows-img" src="https://picsum.photos/200/160/?image={{ album.id }}" />
                 <figcaption (click)="openAlbum(album.id)" class="rows-figcaption">{{album?.title != null ? album?.title.charAt(0).toUpperCase() + album?.title.slice(1) : ""}}</figcaption>

@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { State, getIsRowsCheckedAlbum } from '../state/album.reducer';
 import * as AlbumActions from '../state/album.actions';
 import { getCurrentUser } from 'src/app/user/state/user.reducer';
+import { catchError } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 
 @Component({
     templateUrl: './album-list.component.html',
@@ -17,23 +19,29 @@ export class AlbumListComponent implements OnInit {
                 private store: Store<State>)
    {}
 
+   errorMessage;
     isRowsCheckedAlbum: boolean;
-    albumLists: Album[];
     user = null;
-    
-    ngOnInit():void {
-        this.store.select(getCurrentUser).subscribe(
-            currentUser => {
-                this.user = currentUser;
+    albumLists$ = this.albumListService.listOfAlbums$.pipe(
+      catchError(err => {
+        this.errorMessage = err;
+        return EMPTY;
+      })
+    );
 
-                if (this.user == null)
-                {
-                    this.router.navigate(['/login'])
-                }
-            }
-        );
-        this.loadAlbumLists();
-        
+    ngOnInit():void {
+        // this.store.select(getCurrentUser).subscribe(
+        //     currentUser => {
+        //         this.user = currentUser;
+
+        //         if (this.user == null)
+        //         {
+        //             this.router.navigate(['/login'])
+        //         }
+        //     }
+        // );
+        // this.loadAlbumLists();
+
         this.store.select(getIsRowsCheckedAlbum).subscribe(
             isRowsCheckedAlbum => this.isRowsCheckedAlbum = isRowsCheckedAlbum
         );
@@ -41,9 +49,9 @@ export class AlbumListComponent implements OnInit {
 
     loadAlbumLists()
     {
-        this.albumListService.getListOfAlbums().subscribe((data) => {
-            this.albumLists = data;
-        })
+        // this.albumListService.getListOfAlbums().subscribe((data) => {
+        //     this.albumLists = data;
+        // })
     }
 
     toggleButtonChanged(): void {

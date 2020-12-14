@@ -12,13 +12,11 @@ export class AlbumListService {
 
     private albumListUrl = "https://jsonplaceholder.typicode.com/albums";
 
-    getListOfAlbums(): Observable<Album[]> {
-        return this.http.get<Album[]>(this.albumListUrl)
+    listOfAlbums$ = this.http.get<Album[]>(this.albumListUrl)
             .pipe(
                 tap(),
                 catchError(this.handleError)
             );
-    }
 
     private handleError(err: any) {
         // in a real world app, we may send the server to some remote logging infrastructure

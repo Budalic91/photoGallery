@@ -26,7 +26,6 @@ export const getCurrentUser = createSelector(
 export const userReducer = createReducer<UserState>(
     initialState,
     on(UserActions.setCurrentUser, (state, action): UserState => {
-        console.log(state);
         return {
             ...state,
             currentUser: action.user
